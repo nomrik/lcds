@@ -1,0 +1,2 @@
+src/audio/* filter=lfs diff=lfs merge=lfs -text
+src/videos/* filter=lfs diff=lfs merge=lfs -text
