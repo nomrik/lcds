@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.demo0 {
+  border-radius: 4px;
+  background-color: rgb(240, 240, 232);
+  position: relative;
+  margin: 5px 3px 10px;
+  width: 900px;
+  height: 900px;
+  border: 1px solid black;
+}
+
+.demo0-block {
+  position: absolute;
+  border-radius: 4px;
+}
+
+.demo0-dustball {
+  position: absolute;
+  border-radius: 500px;
+  background-color: black;
+}
+
