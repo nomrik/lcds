@@ -1,12 +1,29 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Square from "./Square";
 import Dustball from "./Dustball";
+import Triangle from "./Triangle";
 import "./App.css";
 
-import track from "./audio/meditation combined.wav";
+import track from "./audio/meditation original.wav";
+
+import eli_1 from "./videos/eli_1.mp4";
+import susie_1 from "./videos/susie_1.mp4";
+import susie_2 from "./videos/susie_2.mp4";
+import pauline_1 from "./videos/pauline_1.mp4";
+import pauline_2 from "./videos/pauline_2.mp4";
+import pauline_3 from "./videos/pauline_3.mp4";
+
+
+const videos = [
+  eli_1,
+  susie_1,
+  susie_2,
+  pauline_1,
+  pauline_2,
+  pauline_3
+]
 
 const animationSpeed = 150;
-const numberOfSquares = 10;
 
 export default function App() {
   const ref = useRef();
@@ -62,13 +79,14 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <div class="app-root">
       <audio src={track} ref={audioRef}></audio>
       <button onClick={handleClick}>{started ? "Toggle Squares" : "Start!"}</button>
       <div className="demo0" ref={ref} onMouseMove={handleMouseMove}>
-        {started && [...Array(numberOfSquares).keys()].map((key) => (
+        {started && videos.map((videoSrc, index) => (
           <Square
-            key={key}
+            key={videoSrc + index}
+            videoSrc={videoSrc}
             width={width}
             height={height}
             animationSpeed={animationSpeed}

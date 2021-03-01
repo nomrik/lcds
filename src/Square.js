@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
-import eliVideo from "./videos/Eli.mp4";
+import Triangle from "./Triangle";
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -11,6 +11,7 @@ const squareSize = 100;
 export default function Square({
   width,
   height,
+  videoSrc,
   animationSpeed,
   onMouseEnter,
   show
@@ -25,7 +26,7 @@ export default function Square({
   const style = {
     width: `${squareSize}px`,
     height: `${squareSize}px`,
-    opacity: show ? "1" : opacity
+    opacity: show ? "1" : opacity,
   };
 
   const handleMouseEnter = useCallback((e) => {
@@ -41,23 +42,35 @@ export default function Square({
     const player = videoRef.current;
     if (player && player.readyState === 4) {
       if (isInside) {
+          let fadeInScale = 0;
           player.currentTime = getRandomArbitrary(0, duration);
-          setOpacity(1);
-          player.volume = 1;
+          setOpacity(fadeInScale);
+          player.volume = 0;
           player.play();
+          const interval = setInterval(() => {
+            if (player.volume > 0.75) {
+                clearInterval(interval);
+            } else {
+                fadeInScale = fadeInScale + 0.15;
+                console.log("Volume: ", fadeInScale);
+                console.log("Opacity: ", fadeInScale);
+                player.volume = fadeInScale;
+                setOpacity(fadeInScale);
+            }
+        }, 200)
       } else {
-          let scale = 1;
+          let fadeOutScale = 1;
           const interval = setInterval(() => {
               if (player.volume < 0.1) {
                   player.pause();
                   setOpacity(0);
                   clearInterval(interval);
               } else {
-                  scale = scale - 0.1;
-                  console.log("Volume: ", scale);
-                  console.log("Opacity: ", scale);
-                  player.volume = scale;
-                  setOpacity(scale);
+                  fadeOutScale = fadeOutScale - 0.1;
+                  console.log("Volume: ", fadeOutScale);
+                  console.log("Opacity: ", fadeOutScale);
+                  player.volume = fadeOutScale;
+                  setOpacity(fadeOutScale);
               }
           }, 200)
       }
@@ -67,8 +80,6 @@ export default function Square({
   const onVideoReady = () => {
     const player = videoRef.current;
     if (player) {
-        console.log("Volume: ", player.volume);
-        console.log("Duration: ", player.duration);
         setDuration(player.duration);
     }
   };
@@ -103,14 +114,18 @@ export default function Square({
       onMouseEnter={handleMouseEnter}
       style={style}
     >
+    <div>
       <video
         width={squareSize}
         height={squareSize}
         onDurationChange={onVideoReady}
         ref={videoRef}
+        class="rotating-video"
       >
-        <source src={eliVideo} type="video/mp4"></source>
+        <source src={videoSrc} type="video/mp4"></source>
       </video>
+      {/* <Triangle width={squareSize + 30} height={squareSize + 30}/> */}
+    </div>
     </motion.div>
   );
 }
