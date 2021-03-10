@@ -1,0 +1,1 @@
+export const githubMediaUrl = "https://media.githubusercontent.com/media/nomrik/lcds/main";
