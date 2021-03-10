@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/lcds/static/css/main.e85d2e09.chunk.css",
-    "main.js": "/lcds/static/js/main.7377737a.chunk.js",
-    "main.js.map": "/lcds/static/js/main.7377737a.chunk.js.map",
+    "main.js": "/lcds/static/js/main.a8896002.chunk.js",
+    "main.js.map": "/lcds/static/js/main.a8896002.chunk.js.map",
     "runtime-main.js": "/lcds/static/js/runtime-main.13a00d36.js",
     "runtime-main.js.map": "/lcds/static/js/runtime-main.13a00d36.js.map",
     "static/js/2.ede2d583.chunk.js": "/lcds/static/js/2.ede2d583.chunk.js",
@@ -12,18 +12,12 @@
     "index.html": "/lcds/index.html",
     "static/css/main.e85d2e09.chunk.css.map": "/lcds/static/css/main.e85d2e09.chunk.css.map",
     "static/js/2.ede2d583.chunk.js.LICENSE.txt": "/lcds/static/js/2.ede2d583.chunk.js.LICENSE.txt",
-    "static/media/eli_1.4be1c0dc.mp4": "/lcds/static/media/eli_1.4be1c0dc.mp4",
-    "static/media/meditation original.6002f9cc.wav": "/lcds/static/media/meditation original.6002f9cc.wav",
-    "static/media/pauline_1.0bc50214.mp4": "/lcds/static/media/pauline_1.0bc50214.mp4",
-    "static/media/pauline_2.13218885.mp4": "/lcds/static/media/pauline_2.13218885.mp4",
-    "static/media/pauline_3.e1c7cc3f.mp4": "/lcds/static/media/pauline_3.e1c7cc3f.mp4",
-    "static/media/susie_1.37197e35.mp4": "/lcds/static/media/susie_1.37197e35.mp4",
-    "static/media/susie_2.72dbafc1.mp4": "/lcds/static/media/susie_2.72dbafc1.mp4"
+    "static/media/meditation original.6002f9cc.wav": "/lcds/static/media/meditation original.6002f9cc.wav"
   },
   "entrypoints": [
     "static/js/runtime-main.13a00d36.js",
     "static/js/2.ede2d583.chunk.js",
     "static/css/main.e85d2e09.chunk.css",
-    "static/js/main.7377737a.chunk.js"
+    "static/js/main.a8896002.chunk.js"
   ]
 }
