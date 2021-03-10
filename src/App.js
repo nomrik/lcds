@@ -4,23 +4,17 @@ import Dustball from "./Dustball";
 import Triangle from "./Triangle";
 import "./App.css";
 
-import track from "./audio/meditation original.wav";
+import { githubMediaUrl } from "./constants";
 
-import eli_1 from "./videos/eli_1.mp4";
-import susie_1 from "./videos/susie_1.mp4";
-import susie_2 from "./videos/susie_2.mp4";
-import pauline_1 from "./videos/pauline_1.mp4";
-import pauline_2 from "./videos/pauline_2.mp4";
-import pauline_3 from "./videos/pauline_3.mp4";
-
+const track = "meditation original";
 
 const videos = [
-  eli_1,
-  susie_1,
-  susie_2,
-  pauline_1,
-  pauline_2,
-  pauline_3
+  "eli_1",
+  "susie_1",
+  "susie_2",
+  "pauline_1",
+  "pauline_2",
+  "pauline_3"
 ]
 
 const animationSpeed = 150;
@@ -80,13 +74,13 @@ export default function App() {
 
   return (
     <div class="app-root">
-      <audio src={track} ref={audioRef}></audio>
+      <audio src={`${githubMediaUrl}/src/audio/${track}.wav`} ref={audioRef}></audio>
       <button onClick={handleClick}>{started ? "Toggle Squares" : "Start!"}</button>
       <div className="demo0" ref={ref} onMouseMove={handleMouseMove}>
         {started && videos.map((videoSrc, index) => (
           <Square
             key={videoSrc + index}
-            videoSrc={videoSrc}
+            videoSrc={`${githubMediaUrl}/src/videos/${videoSrc}.mp4`}
             width={width}
             height={height}
             animationSpeed={animationSpeed}
