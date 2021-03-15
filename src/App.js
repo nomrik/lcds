@@ -1,21 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Square from "./Square";
 import Dustball from "./Dustball";
-import Triangle from "./Triangle";
 import "./App.css";
 
-import { githubMediaUrl } from "./constants";
-
-const track = "meditation original";
-
-const videos = [
-  "eli_1",
-  "susie_1",
-  "susie_2",
-  "pauline_1",
-  "pauline_2",
-  "pauline_3"
-]
+import { videoURLs as videos } from "./constants";
 
 const animationSpeed = 150;
 
@@ -74,13 +62,13 @@ export default function App() {
 
   return (
     <div class="app-root">
-      <audio src={`${githubMediaUrl}/src/audio/${track}.wav`} ref={audioRef}></audio>
+      {/* <audio src={`${githubMediaUrl}/src/audio/${track}.wav`} ref={audioRef}></audio> */}
       <button onClick={handleClick}>{started ? "Toggle Squares" : "Start!"}</button>
       <div className="demo0" ref={ref} onMouseMove={handleMouseMove}>
         {started && videos.map((videoSrc, index) => (
           <Square
             key={videoSrc + index}
-            videoSrc={`${githubMediaUrl}/src/videos/${videoSrc}.mp4`}
+            videoSrc={videoSrc}
             width={width}
             height={height}
             animationSpeed={animationSpeed}
