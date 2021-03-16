@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactPlayer from "react-player/vimeo";
+import { getRandomArbitrary } from "./utils";
 import Square from "./Square";
 import Dustball from "./Dustball";
 import "./App.css";
 
-import { videoURLs as videos } from "./constants";
+import { videoURLs as videos, animationURL, projectURL } from "./constants";
 
 const animationSpeed = 150;
 
 export default function App() {
   const ref = useRef();
-  const audioRef = useRef();
+  const videoRef = useRef();
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [parentLeft, setParentLeft] = useState(0);
@@ -17,8 +19,13 @@ export default function App() {
   const [dustSize, setDustSize] = useState(20);
   const [dustPos, setDustPos] = useState({ x: 0, y: 0 });
   const [showSquares, setShowSquares] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+  const [shouldShowDusty, setShowDusty] = useState(false);
 
   const [started, setStarted] = useState(false);
+  const [started2, setStarted2] = useState(false);
+  const [dustyLeft, setDustyLeft] = useState(`${getRandomArbitrary(10, 90)}%`);
+  const [dustyTop, setDustyTop] = useState(`${getRandomArbitrary(10, 90)}%`);
 
   const handleMouseMove = useCallback(
     (e) => {
@@ -34,19 +41,16 @@ export default function App() {
     [parentLeft, parentTop, dustSize]
   );
 
-  const handleMouseEnter = useCallback((e) => {
-    setDustSize(dustSize + 10);
-  });
-
   const handleClick = () => {
     if (!started) {
-      const audioPlayer = audioRef.current;
-      if (audioPlayer && audioPlayer.readyState === 4) {
-        audioPlayer.play();
-      }
-      setStarted(true)
+      setStarted(true);
+      setShowDusty(false);
+      setTimeout(() => {
+        setStarted2(true);
+      }, 7000)
     } else {
-      setShowSquares(!showSquares);
+      setShowDusty(false);
+      setStarted2(true);
     }
   };
 
@@ -58,14 +62,94 @@ export default function App() {
     setParentTop(rect.top);
     setWidth(width);
     setHeight(height);
+    setTimeout(() => {
+      setShowDusty(true);
+    }, 28000)
   }, []);
+
+  const alternateVideo = useCallback(() => {
+    setTimeout(() => {
+      setOpacity(0.2);
+      setTimeout(() => {
+        setOpacity(0);
+        alternateVideo();
+      }, getRandomArbitrary(3000, 4000))
+    }, getRandomArbitrary(8000, 12000))
+  }, [])
+
+  // useEffect(() => {
+  //   const video = videoRef.current;
+  //   // Get access to the camera!
+  //   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  //     // Not adding `{ audio: true }` since we only want video now
+  //     navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+  //         //video.src = window.URL.createObjectURL(stream);
+  //         video.srcObject = stream;
+  //         video.play();
+  //     });
+  //   }
+  //   alternateVideo();
+  // }, [])
+
+  const commonStyle = {
+    position: "absolute",
+    top: 0,
+    left: 0
+  }
 
   return (
     <div class="app-root">
-      {/* <audio src={`${githubMediaUrl}/src/audio/${track}.wav`} ref={audioRef}></audio> */}
-      <button onClick={handleClick}>{started ? "Toggle Squares" : "Start!"}</button>
       <div className="demo0" ref={ref} onMouseMove={handleMouseMove}>
-        {started && videos.map((videoSrc, index) => (
+        <video
+          ref={videoRef} 
+          class="video" 
+          width="50%" 
+          height="50%"
+          style={{
+            position: "absolute",
+            top: "40%",
+            left: "50%",
+            zIndex: 3,
+            opacity: opacity
+          }} 
+          autoplay
+        >
+        </video>
+        <ReactPlayer 
+          width="75%"
+          height="75%"
+          url={projectURL}
+          style={{
+            ...commonStyle, 
+            zIndex: 2,
+            margin: "30px",
+            opacity: started2 ? 1 : 0
+          }}
+          playing={started}
+          volume={1}
+        />
+        <ReactPlayer 
+          width="100%"
+          height="100%"
+          url={animationURL}
+          style={{
+            ...commonStyle, zIndex: 0
+          }}
+          playing
+          muted
+          loop
+        />
+        {shouldShowDusty && 
+          <div 
+            className="dusty" 
+            onClick={handleClick}
+            style={{
+              left: dustyLeft,
+              top: dustyTop
+            }}>
+          </div>
+        }
+        {/* {started && videos.map((videoSrc, index) => (
           <Square
             key={videoSrc + index}
             videoSrc={videoSrc}
@@ -76,7 +160,7 @@ export default function App() {
             show={showSquares}
           />
         ))}
-        {started && <Dustball x={dustPos.x} y={dustPos.y} size={dustSize} />}
+        {started && <Dustball x={dustPos.x} y={dustPos.y} size={dustSize} />} */}
       </div>
     </div>
   );
