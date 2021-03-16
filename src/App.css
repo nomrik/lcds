@@ -9,14 +9,11 @@ html, body, #root {
 }
 
 .demo0 {
-  border-radius: 4px;
-  background-color: rgb(240, 240, 232);
   position: relative;
   margin: 5px 3px 10px;
   /* width: 900px;
   height: 900px; */
   flex: 1;
-  border: 1px solid black;
 }
 
 .demo0-block {
@@ -41,6 +38,37 @@ html, body, #root {
 
   to {
     transform: rotate(359deg);
+  }
+}
+
+.dusty {
+  position: absolute;
+  left: 60%;
+  top: 70%;
+  width: 8px;
+  height: 8px;
+  border-radius: 500px;
+  background-color: rgba(29, 29, 29, 0.8);
+  cursor: pointer;
+  z-index: 5;
+  animation: grow linear 1s infinite alternate, fadeColor linear 2.5s infinite alternate;
+}
+
+@keyframes grow {
+  from {
+      transform: scale(1);
+  }
+  to {
+      transform: scale(1.35);
+  }
+}
+
+@keyframes fadeColor {
+  from {
+    background-color: rgba(29, 29, 29, 0.8);
+  }
+  to {
+    background-color: rgba(29, 29, 29, 1);
   }
 }
 

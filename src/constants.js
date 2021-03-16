@@ -8,3 +8,6 @@ export const videoURLs = [
     "https://vimeo.com/523729836/c3c618396b",
     "https://vimeo.com/523731442/9aa1b3256e",
 ]
+
+export const animationURL = "https://vimeo.com/523997697/3129da299b";
+export const projectURL = "https://vimeo.com/423548242";
