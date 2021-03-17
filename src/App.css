@@ -3,9 +3,14 @@ html, body, #root {
 }
 
 .app-root {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  z-index: 4;
 }
 
 .demo0 {
@@ -43,15 +48,17 @@ html, body, #root {
 
 .dusty {
   position: absolute;
-  left: 60%;
-  top: 70%;
   width: 8px;
   height: 8px;
   border-radius: 500px;
   background-color: rgba(29, 29, 29, 0.8);
   cursor: pointer;
   z-index: 5;
-  animation: grow linear 1s infinite alternate, fadeColor linear 2.5s infinite alternate;
+  animation: grow linear 1s infinite alternate;
+}
+
+.dusty.white {
+  background-color: white;
 }
 
 @keyframes grow {
@@ -72,3 +79,38 @@ html, body, #root {
   }
 }
 
+.title-page {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  transition: transform 3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  position: absolute;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.title-page.started {
+  transform: translateY(-9999px);
+}
+
+.title-page .starter {
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 20px;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-page .starter:hover {
+  background-color:rgba(29, 29, 29, 1)
+}
