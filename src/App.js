@@ -3,15 +3,15 @@ import ReactPlayer from "react-player/vimeo";
 import { getRandomArbitrary } from "./utils";
 import Square from "./Square";
 import Dustball from "./Dustball";
-import "./App.css";
 
 import { videoURLs as videos, animationURL, projectURL } from "./constants";
 
 const animationSpeed = 150;
 
-export default function App() {
+export default function App({ init }) {
   const ref = useRef();
   const videoRef = useRef();
+  const bgRef = useRef();
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [parentLeft, setParentLeft] = useState(0);
@@ -55,27 +55,34 @@ export default function App() {
   };
 
   useEffect(() => {
-    const width = ref.current.offsetWidth;
-    const height = ref.current.offsetHeight;
-    const rect = ref.current.getBoundingClientRect();
-    setParentLeft(rect.left);
-    setParentTop(rect.top);
-    setWidth(width);
-    setHeight(height);
-    setTimeout(() => {
-      setShowDusty(true);
-    }, 28000)
-  }, []);
+    if (init) {
+      const bg = bgRef.current;
+      bg.seekTo(1);
+
+      const width = ref.current.offsetWidth;
+      const height = ref.current.offsetHeight;
+      const rect = ref.current.getBoundingClientRect();
+      setParentLeft(rect.left);
+      setParentTop(rect.top);
+      setWidth(width);
+      setHeight(height);
+      setTimeout(() => {
+        setShowDusty(true);
+      }, 12000)
+    }
+  }, [init]);
 
   const alternateVideo = useCallback(() => {
-    setTimeout(() => {
-      setOpacity(0.2);
+    if (init) {
       setTimeout(() => {
-        setOpacity(0);
-        alternateVideo();
-      }, getRandomArbitrary(3000, 4000))
-    }, getRandomArbitrary(8000, 12000))
-  }, [])
+        setOpacity(0.2);
+        setTimeout(() => {
+          setOpacity(0);
+          alternateVideo();
+        }, getRandomArbitrary(3000, 4000))
+      }, getRandomArbitrary(8000, 12000))
+    }
+  }, [init])
 
   // useEffect(() => {
   //   const video = videoRef.current;
@@ -125,10 +132,11 @@ export default function App() {
             margin: "30px",
             opacity: started2 ? 1 : 0
           }}
-          playing={started}
+          playing={init}
           volume={1}
         />
         <ReactPlayer 
+          ref={bgRef}
           width="100%"
           height="100%"
           url={animationURL}
