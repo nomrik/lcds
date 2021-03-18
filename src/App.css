@@ -1,5 +1,6 @@
 html, body, #root {
   height: 100%;
+  overflow: hidden;
 }
 
 .app-root {
@@ -91,11 +92,11 @@ html, body, #root {
   z-index: 5;
   position: absolute;
   color: white;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Roboto', sans-serif;
 }
 
 .title-page.started {
-  transform: translateY(-9999px);
+  transform: translateY(9999px);
 }
 
 .title-page .starter {
