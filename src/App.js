@@ -45,12 +45,10 @@ export default function App({ init }) {
     if (!started) {
       setStarted(true);
       setShowDusty(false);
+      alternateVideo();
       setTimeout(() => {
         setStarted2(true);
       }, 7000)
-    } else {
-      setShowDusty(false);
-      setStarted2(true);
     }
   };
 
@@ -80,23 +78,24 @@ export default function App({ init }) {
           setOpacity(0);
           alternateVideo();
         }, getRandomArbitrary(3000, 4000))
-      }, getRandomArbitrary(8000, 12000))
+      }, getRandomArbitrary(120000, 180000))
     }
   }, [init])
 
-  // useEffect(() => {
-  //   const video = videoRef.current;
-  //   // Get access to the camera!
-  //   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  //     // Not adding `{ audio: true }` since we only want video now
-  //     navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-  //         //video.src = window.URL.createObjectURL(stream);
-  //         video.srcObject = stream;
-  //         video.play();
-  //     });
-  //   }
-  //   alternateVideo();
-  // }, [])
+  useEffect(() => {
+    if (init) {
+      const video = videoRef.current;
+      // Get access to the camera!
+      if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+        });
+      }
+    }
+  }, [init])
 
   const commonStyle = {
     position: "absolute",
