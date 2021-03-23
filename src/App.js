@@ -1,14 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/vimeo";
-import { getRandomArbitrary } from "./utils";
-import Square from "./Square";
-import Dustball from "./Dustball";
+import { getRandomArbitrary, delay } from "./utils";
 
-import { videoURLs as videos, animationURL, projectURL } from "./constants";
+import { animationURL, projectURL } from "./constants";
 
-const animationSpeed = 150;
-
-export default function App({ init }) {
+export default function App({ init, setEnded }) {
   const ref = useRef();
   const videoRef = useRef();
   const bgRef = useRef();
@@ -21,6 +17,7 @@ export default function App({ init }) {
   const [showSquares, setShowSquares] = useState(false);
   const [opacity, setOpacity] = useState(0);
   const [shouldShowDusty, setShowDusty] = useState(false);
+  const [shouldShowDustyClick, setShowDustyClick] = useState(false);
 
   const [started, setStarted] = useState(false);
   const [started2, setStarted2] = useState(false);
@@ -46,9 +43,12 @@ export default function App({ init }) {
       setStarted(true);
       setShowDusty(false);
       alternateVideo();
-      setTimeout(() => {
+      delay(getRandomArbitrary(7000, 8500)).then(() => {
         setStarted2(true);
-      }, 7000)
+      })
+      // setTimeout(() => {
+      //   setStarted2(true);
+      // }, getRandomArbitrary(7000, 8500))
     }
   };
 
@@ -64,21 +64,37 @@ export default function App({ init }) {
       setParentTop(rect.top);
       setWidth(width);
       setHeight(height);
-      setTimeout(() => {
+
+      delay(getRandomArbitrary(8000, 10000)).then(() => {
         setShowDusty(true);
-      }, 12000)
+        return delay(getRandomArbitrary(7000, 9000))
+      }).then(() => {
+        setShowDustyClick(true);
+      })
     }
   }, [init]);
 
   const alternateVideo = useCallback(() => {
     if (init) {
-      setTimeout(() => {
+      delay(getRandomArbitrary(120000, 180000)).then(() => {
         setOpacity(0.2);
-        setTimeout(() => {
-          setOpacity(0);
-          alternateVideo();
-        }, getRandomArbitrary(3000, 4000))
-      }, getRandomArbitrary(120000, 180000))
+        return delay(getRandomArbitrary(800, 1200))
+      }).then(() => {
+        setOpacity(0);
+        return delay(getRandomArbitrary(100000, 150000));
+      }).then(() => {
+        setOpacity(0.2);
+        return delay(getRandomArbitrary(4000, 6000));
+      }).then(() => {
+        setOpacity(0);
+      })
+      // setTimeout(() => {
+      //   setOpacity(0.2);
+      //   setTimeout(() => {
+      //     setOpacity(0);
+      //     alternateVideo();
+      //   }, getRandomArbitrary(3000, 4000))
+      // }, getRandomArbitrary(120000, 180000))
     }
   }, [init])
 
@@ -96,6 +112,10 @@ export default function App({ init }) {
       }
     }
   }, [init])
+
+  const endShow = useCallback(() => {
+    setEnded(true);
+  }, [setEnded]);
 
   const commonStyle = {
     position: "absolute",
@@ -133,6 +153,7 @@ export default function App({ init }) {
           }}
           playing={init}
           volume={1}
+          onEnded={endShow}
         />
         <ReactPlayer 
           ref={bgRef}
@@ -147,27 +168,20 @@ export default function App({ init }) {
           loop
         />
         {shouldShowDusty && 
-          <div 
-            className="dusty" 
+          <div className="starter black" 
             onClick={handleClick}
             style={{
-              left: dustyLeft,
-              top: dustyTop
-            }}>
+                left: dustyLeft,
+                top: dustyTop
+              }}
+            >
+            {shouldShowDustyClick && <p className="starter-text">click me?</p>}
+            <div 
+              className="dusty" 
+            >
+            </div>
           </div>
         }
-        {/* {started && videos.map((videoSrc, index) => (
-          <Square
-            key={videoSrc + index}
-            videoSrc={videoSrc}
-            width={width}
-            height={height}
-            animationSpeed={animationSpeed}
-            onMouseEnter={handleMouseEnter}
-            show={showSquares}
-          />
-        ))}
-        {started && <Dustball x={dustPos.x} y={dustPos.y} size={dustSize} />} */}
       </div>
     </div>
   );

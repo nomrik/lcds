@@ -9,5 +9,5 @@ export const videoURLs = [
     "https://vimeo.com/523731442/9aa1b3256e",
 ]
 
-export const animationURL = "https://vimeo.com/523997697/3129da299b";
-export const projectURL = "https://vimeo.com/423548242";
+export const animationURL = "https://vimeo.com/526197421/1ece59b071";
+export const projectURL = "https://vimeo.com/527302542/353f72d77f";

@@ -1,6 +1,7 @@
 html, body, #root {
   height: 100%;
   overflow: hidden;
+  font-family: 'Roboto', sans-serif;
 }
 
 .app-root {
@@ -92,14 +93,17 @@ html, body, #root {
   z-index: 5;
   position: absolute;
   color: white;
-  font-family: 'Roboto', sans-serif;
 }
 
 .title-page.started {
   transform: translateY(9999px);
 }
 
-.title-page .starter {
+.title-page.ended h2{
+  margin: 5px;
+}
+
+.starter {
   padding: 10px;
   border: 2px solid white;
   border-radius: 2px;
@@ -112,6 +116,24 @@ html, body, #root {
   justify-content: center;
 }
 
-.title-page .starter:hover {
+.starter:hover {
   background-color:rgba(29, 29, 29, 1)
+}
+
+.starter.black {
+  position: absolute;
+  border: 2px solid rgba(29, 29, 29, 0.8);
+  z-index: 6;
+}
+
+.starter.black:hover {
+  background-color:rgba(29, 29, 29, 0.1)
+}
+
+.starter-text {
+  width: 200px;
+  position: absolute;
+  user-select: none;
+  left: -8px;
+  top: -38px;
 }
