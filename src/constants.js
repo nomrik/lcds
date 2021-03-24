@@ -9,5 +9,17 @@ export const videoURLs = [
     "https://vimeo.com/523731442/9aa1b3256e",
 ]
 
-export const animationURL = "https://vimeo.com/526197421/1ece59b071";
-export const projectURL = "https://vimeo.com/527302542/353f72d77f";
+export const animationURL = "https://vimeo.com/527910628/458540485c";
+export const projectURL = "https://vimeo.com/527921080/4a1242fa26";
+
+export const htmlVideoDimensions = {
+    width: 640,
+    height: 480
+}
+
+export const vimeoVideoDimensions = {
+    width: 640,
+    height: 360
+}
+
+export const margin = 30;
